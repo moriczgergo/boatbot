@@ -22,3 +22,14 @@ client.on('message', function(message) {
 });
 
 client.login(token);
+
+process.on('SIGINT', function() {
+    logger("bot", "Disconnecting...");
+    client.destroy().then(function() {
+        logger("bot", "Disconnected.");
+        process.exit();
+    }).catch(function() {
+        logger("bot", "Failed to properly disconnect.");
+        process.exit();
+    });
+});
